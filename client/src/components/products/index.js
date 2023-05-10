@@ -1,2 +1,2 @@
 export { default as ApartmentSection } from "./ApartmentSection";
-export { default as GolfKartSection } from "./GolfKartSection";
+export { default as GolfCarSection } from "./GolfCarSection";

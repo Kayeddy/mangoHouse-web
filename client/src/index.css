@@ -4,6 +4,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans&family=Sen&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap");
+@import "material-symbols";
 
 @tailwind base;
 @tailwind components;
@@ -107,4 +108,58 @@ input[type="file"] {
 
 .sketch-picker > div:nth-child(3) {
   display: none !important;
+}
+
+/* Scrollbar styling */
+/* Hide the default scrollbar */
+.modal-scrollable-content::-webkit-scrollbar {
+  opacity: 0;
+  width: 10px;
+}
+/* Define the custom scrollbar */
+.modal-scrollable-content::-webkit-scrollbar-track {
+  background-color: #e2e8f0 !important;
+  border-radius: 6px !important;
+}
+
+.modal-scrollable-content::-webkit-scrollbar-thumb {
+  background: linear-gradient(#f49096, #f9ae51) !important;
+  border-radius: 6px !important;
+  max-height: 40px !important;
+}
+
+.modal-scrollable-content::-webkit-scrollbar-thumb:hover {
+  background-color: #718096 !important;
+}
+
+/* Calendar styling */
+
+.react-datepicker {
+  font-family: "Arial", sans-serif;
+  background-color: transparent;
+  border: none;
+  border-radius: 0.375rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.react-datepicker__header {
+  background-color: transparent;
+  border-bottom: none;
+}
+
+.react-datepicker__current-month {
+  color: #1a202c;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+  color: #1a202c;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background-color: #f9ae51;
+  color: #fff;
 }
