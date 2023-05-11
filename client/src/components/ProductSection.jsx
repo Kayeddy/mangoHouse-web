@@ -8,7 +8,7 @@ import state from "../context";
 const ProductSection = () => {
   const snap = useSnapshot(state);
   return (
-    <div className="w-full h-fit">
+    <div className="w-full h-fit mb-10">
       <div
         className={`flex w-full items-center justify-center transition-all duration-500 ease-in-out`}
       >

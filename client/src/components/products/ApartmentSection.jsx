@@ -1,6 +1,7 @@
 /* eslint-disable react/display-name */
 import React, { useState, useRef, useEffect } from "react";
 import Select from "react-select";
+import { useSnapshot } from "valtio";
 
 import state from "../../context";
 import ProductMediaViewer from "../ProductMediaViewer";
@@ -8,11 +9,30 @@ import { productsMedia } from "../../constants";
 import { Calendar } from "../utilityComponents";
 import CustomButton from "../CustomButton";
 import InputField from "../utilityComponents/InputField";
+import { whatssapConnection } from "../../utils";
 
 const ApartmentSection = () => {
+  const [selectedReservationAmount, setSelectedReservationAmount] =
+    useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+
   const usernameInputRef = useRef(null);
   const emailInputRef = useRef(null);
   const phoneInputRef = useRef(null);
+  const reservationAmountRef = useRef(null);
+  const formattedDate = useRef(
+    new Date().toLocaleDateString("es-CO", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })
+  );
+
+  const snap = useSnapshot(state);
 
   const selectOptions = [
     { value: "1", label: "1" },
@@ -20,6 +40,33 @@ const ApartmentSection = () => {
     { value: "3", label: "3" },
     { value: "4", label: "4" },
   ];
+
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePhoneChange = (event) => {
+    setPhone(event.target.value);
+  };
+
+  const handleDateChange = (date) => {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    if (date) {
+      formattedDate.current = date.toLocaleDateString("es-CO", options);
+      setSelectedDate(date);
+    } else {
+      setSelectedDate(new Date());
+      formattedDate.current = new Date().toLocaleDateString("es-CO", options);
+    }
+  };
+
+  const handleReservationAmountChange = (event) => {
+    setSelectedReservationAmount(event);
+  };
 
   const highlightField = (e) => {
     const inputRefs = [usernameInputRef, emailInputRef, phoneInputRef];
@@ -38,6 +85,26 @@ const ApartmentSection = () => {
     });
   };
 
+  const handleReservation = (e) => {
+    e.preventDefault();
+
+    // If the button is disabled, do nothing
+    if (isButtonDisabled) {
+      return;
+    }
+
+    const url = whatssapConnection(
+      snap.userViewingService.service,
+      usernameInputRef.current.value,
+      emailInputRef.current.value,
+      phoneInputRef.current.value,
+      selectedReservationAmount?.value,
+      formattedDate.current
+    );
+
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
   const selectCustomStyles = {
     option: (provided, state) => ({
       ...provided,
@@ -54,6 +121,19 @@ const ApartmentSection = () => {
       },
     }),
   };
+
+  useEffect(() => {
+    if (
+      username !== "" &&
+      email !== "" &&
+      phone !== "" &&
+      selectedReservationAmount?.value !== ""
+    ) {
+      setIsButtonDisabled(false);
+    } else {
+      setIsButtonDisabled(true);
+    }
+  }, [username, email, phone, selectedReservationAmount?.value]);
 
   return (
     <div className="w-full">
@@ -77,6 +157,8 @@ const ApartmentSection = () => {
                   placeholder="Nombre"
                   handleFocus={highlightField}
                   type="text"
+                  value={username}
+                  onChange={handleUsernameChange}
                 />
                 <InputField
                   ref={emailInputRef}
@@ -84,7 +166,9 @@ const ApartmentSection = () => {
                   icon="email"
                   placeholder="Email"
                   handleFocus={highlightField}
-                  type="text"
+                  type="email"
+                  value={email}
+                  onChange={handleEmailChange}
                 />
                 <InputField
                   ref={phoneInputRef}
@@ -92,7 +176,9 @@ const ApartmentSection = () => {
                   icon="smartphone"
                   placeholder="Celular"
                   handleFocus={highlightField}
-                  type="text"
+                  type="number"
+                  value={phone}
+                  onChange={handlePhoneChange}
                 />
 
                 <div className="flex flex-row gap-4">
@@ -111,7 +197,14 @@ const ApartmentSection = () => {
                     isSearchable={false}
                     placeholder="Seleccionar"
                     className="z-10"
-                  />
+                    ref={reservationAmountRef}
+                    value={selectedReservationAmount}
+                    onChange={handleReservationAmountChange}
+                  >
+                    {selectedReservationAmount && (
+                      <p>Selected Value: {selectedReservationAmount.label}</p>
+                    )}
+                  </Select>
                 </div>
               </div>
 
@@ -119,15 +212,24 @@ const ApartmentSection = () => {
                 <p className="font-jakarta md:text-sm text-md text-[#1A202C] ">
                   Selecciona una fecha
                 </p>
-                <Calendar />
+                <Calendar
+                  selectedDate={selectedDate}
+                  handleDateChange={handleDateChange}
+                />
               </div>
             </div>
-            <CustomButton
-              type="filled"
-              title="Reservar"
-              handleClick={() => (state.userOnHomepage = true)}
-              styles="w-32 px-4 py-2.5 font-bold text-md bg-gradient-to-r from-[#f49096] to-[#f9ae51]"
-            />
+            <a
+              onClick={handleReservation}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <CustomButton
+                type="filled"
+                title="Reservar"
+                disabled={isButtonDisabled} // disable the button if the form is not completely filled
+                styles="w-32 px-4 py-2.5 font-bold text-md bg-gradient-to-r from-[#f49096] to-[#f9ae51]"
+              />
+            </a>
           </div>
         </div>
       </div>

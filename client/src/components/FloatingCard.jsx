@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import sai5 from "../assets/sai5.gif";
 
 const FloatingCard = ({ items, smallScreens }) => {
   const [showImageCards, setShowImageCards] = useState(true);
@@ -62,6 +63,7 @@ const FloatingCard = ({ items, smallScreens }) => {
               autoPlay
               loop
               muted
+              poster={sai5}
               playsInline
               className="w-full h-full object-cover"
             />

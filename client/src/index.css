@@ -96,6 +96,17 @@ input[type="file"] {
   opacity: 0;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 .sketch-picker {
   width: 170px !important;
   background: rgba(255, 255, 255, 0.25) !important;
@@ -160,6 +171,10 @@ input[type="file"] {
 
 .react-datepicker__day--selected,
 .react-datepicker__day--keyboard-selected {
-  background-color: #f9ae51;
+  background-color: #f9ae51 !important;
   color: #fff;
+}
+
+.react-datepicker__day--disabled {
+  color: grey !important;
 }

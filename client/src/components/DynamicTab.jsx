@@ -147,7 +147,7 @@ const DynamicTab = () => {
         />
         <CustomButton
           type="filled"
-          title="Hospedaje"
+          title="Transporte"
           handleClick={handleTransportProduct}
           styles="w-full px-12 py-4 font-bold text-md bg-gradient-to-r from-[#f49096] to-[#f9ae51] md:hidden"
         />
