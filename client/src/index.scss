@@ -4,7 +4,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans&family=Sen&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap");
-@import "material-symbols";
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons+Outlined");
 
 @tailwind base;
 @tailwind components;
@@ -177,4 +177,45 @@ input[type="number"] {
 
 .react-datepicker__day--disabled {
   color: grey !important;
+}
+
+// Background styling
+
+$particleSize: 20vmin;
+$animationDuration: 6s;
+$amount: 20;
+
+.customBackground span {
+  width: $particleSize;
+  height: $particleSize;
+  border-radius: $particleSize;
+  backface-visibility: hidden;
+  position: fixed;
+  animation-name: move;
+  animation-duration: $animationDuration;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  z-index: -1;
+
+  $colors: (#f9ae51, #f49096, #ffacac);
+
+  @for $i from 1 through $amount {
+    &:nth-child(#{$i}) {
+      color: nth($colors, random(length($colors)));
+      top: random(100) * 1%;
+      left: random(100) * 1%;
+      animation-duration: (random($animationDuration * 10) / 10) * 1s + 10s;
+      animation-delay: random((($animationDuration + 10s) * 10) / 10) * -1s;
+      transform-origin: (random(50) - 25) * 1vw (random(50) - 25) * 1vh;
+      $blurRadius: (random() + 0.5) * $particleSize * 0.5;
+      $x: if(random() > 0.5, -1, 1);
+      box-shadow: ($particleSize * 2 * $x) 0 $blurRadius currentColor;
+    }
+  }
+}
+
+@keyframes move {
+  100% {
+    transform: translate3d(0, 0, 1px) rotate(360deg);
+  }
 }

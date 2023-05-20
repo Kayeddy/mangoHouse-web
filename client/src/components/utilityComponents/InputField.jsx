@@ -8,12 +8,12 @@ const InputField = React.forwardRef(
         className={`relative w-full flex flex-row items-center border-b-1`}
         id={`${id}-container`}
       >
-        <span
-          className="material-symbols-outlined cursor-pointer text-[#1A202C] "
+        <i
+          className="material-icons-outlined text-[#1A202C] "
           id={`${id}-icon`}
         >
           {icon}
-        </span>
+        </i>
         <input
           required
           ref={ref}

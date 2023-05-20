@@ -1,14 +1,15 @@
 import React from "react";
 import { motion, useAnimation } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 import { fadeAnimation } from "../config/motion";
 import CustomButton from "./CustomButton";
 import { Posada1_1 } from "../assets/Apartments";
-import { GolfCar1_1, GolfCar1_2 } from "../assets/GolfCar";
-import state from "../context";
+import { GolfCar1_1 } from "../assets/GolfCar";
 
 const DynamicTab = () => {
   const controls1 = useAnimation();
+  const navigate = useNavigate();
 
   const handleHoverStart = (controls) => {
     controls.start({
@@ -27,13 +28,11 @@ const DynamicTab = () => {
   };
 
   const handleHousingProduct = () => {
-    state.userViewingService.state = true;
-    state.userViewingService.service = "hospedaje";
+    navigate("/hospedaje");
   };
 
   const handleTransportProduct = () => {
-    state.userViewingService.state = true;
-    state.userViewingService.service = "transporte";
+    navigate("/transporte");
   };
 
   return (

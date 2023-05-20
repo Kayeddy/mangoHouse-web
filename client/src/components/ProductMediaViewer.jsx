@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useSnapshot } from "valtio";
+import LazyLoad from "react-lazyload";
 
 import { MdOutlineKeyboardArrowRight as RightArrow } from "react-icons/md";
 import { MdOutlineKeyboardArrowLeft as LeftArrow } from "react-icons/md";
@@ -43,28 +44,35 @@ const ProductMediaViewer = ({ media }) => {
             >
               <RightArrow />
             </div>
-            <motion.img
-              title="Click para ver imagen en pantalla completa"
-              src={media[activeImage]}
-              alt="imagen del proyecto"
-              className="w-screen md:h-[550px] h-[350px] object-fit carousel-item transition-opacity duration-500 ease-in-out"
-              key={media[activeImage]}
-              transition={{ duration: 2 }}
-              onClick={setFullscreenImage}
-            />
+            <LazyLoad
+              height={snap.userViewingService.state ? 200 : 400}
+              once
+              className="h-fit w-fit"
+            >
+              <motion.img
+                title="Click para ver imagen en pantalla completa"
+                src={media[activeImage]}
+                alt="Product-images"
+                className="w-screen md:h-[550px] h-[350px] object-fit carousel-item transition-opacity duration-500 ease-in-out"
+                key={media[activeImage]}
+                transition={{ duration: 2 }}
+                onClick={setFullscreenImage}
+              />
+            </LazyLoad>
           </div>
 
           <div className=" hidden md:flex flex-row items-center justify-start gap-4 w-full p-4 h-[100px] absolute bottom-0 left-0 right-0 bg-[#01070E80] opacity-100 backdrop-blur-[3px]">
             <div className="flex flex-row gap-2 w-full carousel">
               {productMedia.map((item, index) => (
-                <img
-                  key={index}
-                  src={item}
-                  alt="Other campaign images"
-                  className={`h-[60px] w-[60px] ${
-                    index === activeImage ? "h-[70px] w-[70px]" : ""
-                  }`}
-                />
+                <LazyLoad once className="h-fit w-fit" key={index}>
+                  <img
+                    src={item}
+                    alt="Other campaign images"
+                    className={`h-[60px] w-[60px] ${
+                      index === activeImage ? "h-[70px] w-[70px]" : ""
+                    }`}
+                  />
+                </LazyLoad>
               ))}
             </div>
           </div>
