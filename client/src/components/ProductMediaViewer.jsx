@@ -67,7 +67,7 @@ const ProductMediaViewer = ({ media }) => {
                 <LazyLoad once className="h-fit w-fit" key={index}>
                   <img
                     src={item}
-                    alt="Other campaign images"
+                    alt="property_images"
                     className={`h-[60px] w-[60px] ${
                       index === activeImage ? "h-[70px] w-[70px]" : ""
                     }`}
