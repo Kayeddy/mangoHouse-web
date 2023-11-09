@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useSnapshot } from "valtio";
 import LazyLoad from "react-lazyload";
@@ -33,13 +33,13 @@ const ProductMediaViewer = ({ media }) => {
         <div className="relative w-full">
           <div className="carousel w-full relative">
             <div
-              className=" absolute md:top-[40%] top-[43%] bottom-0 md:left-[20px] left-2 p-2 md:text-[30px] text-[25px] bg-[#01070E] text-white opacity-50 rounded-lg h-fit cursor-pointer select-none"
+              className=" absolute  md:top-[40%] top-[40%] z-[999] bottom-0 md:left-[20px] left-2 p-2 md:text-[30px] text-[25px] bg-[#01070E] text-white opacity-50 rounded-lg h-fit cursor-pointer select-none"
               onClick={handleLeftClick}
             >
               <LeftArrow />
             </div>
             <div
-              className="absolute md:top-[40%] top-[43%] bottom-0 md:right-[20px] right-2 p-2 md:text-[30px] text-[25px] bg-[#01070E] text-white opacity-50 rounded-lg h-fit cursor-pointer select-none"
+              className="absolute md:top-[40%] top-[43%] z-[999] bottom-0 md:right-[20px] right-2 p-2 md:text-[30px] text-[25px] bg-[#01070E] text-white opacity-50 rounded-lg h-fit cursor-pointer select-none"
               onClick={handleRightClick}
             >
               <RightArrow />
@@ -53,7 +53,7 @@ const ProductMediaViewer = ({ media }) => {
                 title="Click para ver imagen en pantalla completa"
                 src={media[activeImage]}
                 alt="Product-images"
-                className="w-screen md:h-[550px] h-[350px] object-fit carousel-item transition-opacity duration-500 ease-in-out"
+                className="w-screen md:h-[550px] h-[350px] object-cover carousel-item transition-opacity duration-500 ease-in-out"
                 key={media[activeImage]}
                 transition={{ duration: 2 }}
                 onClick={setFullscreenImage}
@@ -68,7 +68,7 @@ const ProductMediaViewer = ({ media }) => {
                   <img
                     src={item}
                     alt="property_images"
-                    className={`h-[60px] w-[60px] ${
+                    className={`h-[60px] w-[60px] object-cover ${
                       index === activeImage ? "h-[70px] w-[70px]" : ""
                     }`}
                   />
@@ -77,7 +77,7 @@ const ProductMediaViewer = ({ media }) => {
             </div>
           </div>
         </div>
-        {snap.userViewingService.service !== "transporte" && (
+        {snap.userViewingService.service !== "transport" && (
           <div className="md:flex grid grid-cols-2 md:w-[150px] w-full flex-wrap justify-center items-center md:justify-between gap-[10px] place-items-center">
             <InfoBox title="Habitaciones" value={"3"} />
             <InfoBox title="baños" value={"2"} />
