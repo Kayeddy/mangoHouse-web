@@ -29,7 +29,12 @@ export const useReservationForm = () => {
     setFormState((prevState) => ({ ...prevState, [field]: value }));
   };
 
-  // Reservation submission handler
+  /**
+   * Handles the submission of the reservation form. If the form is valid, it
+   * formats the selected date, constructs a WhatsApp URL with the user's
+   * reservation details, and opens this URL in a new tab to start a chat for
+   * reservation confirmation.
+   */
   const handleReservation = () => {
     if (!isFormValid) return;
 

@@ -11,7 +11,6 @@ import { setFullscreenImage } from "../utils";
 import state from "../context";
 
 const ProductMediaViewer = ({ media }) => {
-  let productMedia = media;
   const [activeImage, setActiveImage] = useState(0);
   const snap = useSnapshot(state);
 
@@ -63,7 +62,7 @@ const ProductMediaViewer = ({ media }) => {
 
           <div className=" hidden md:flex flex-row items-center justify-start gap-4 w-full p-4 h-[100px] absolute bottom-0 left-0 right-0 bg-[#01070E80] opacity-100 backdrop-blur-[3px]">
             <div className="flex flex-row gap-2 w-full carousel">
-              {productMedia.map((item, index) => (
+              {media.map((item, index) => (
                 <LazyLoad once className="h-fit w-fit" key={index}>
                   <img
                     src={item}

@@ -72,16 +72,6 @@ const Home = () => {
             </motion.div>
           </motion.div>
         </motion.section>
-        {/* 
-          <motion.div
-            {...slideAnimation("up")}
-              className={`hidden md:block absolute bottom-5 lg:bottom-0 right-5 xl:right-[10%] md:w-[30vw] lg:w-[35vw] ${
-              !adjustFloatingCard ? "xl:top-[38.5vh]" : "xl:top-[350px]"
-              }`}
-            >
-              <FloatingCard items={items} smallScreens={setAdjustFloatingCard} />
-              </motion.div>
-  */}
       </div>
     </AnimatePresence>
   );

@@ -1,8 +1,8 @@
 import { proxy } from "valtio";
-import Cookies from "js-cookie"; //Allows us to establish one or more contexts inside the different states of out application
+import Cookies from "js-cookie"; // Allows us to establish one or more contexts inside the different states of out application
 
 const state = proxy({
-  userOnHomepage: true, //Is the user currently on the homepage?
+  userOnHomepage: true, // Is the user currently on the homepage?
   userLoggedIn: false,
   cookiesAccepted: false,
   acceptCookies: function () {

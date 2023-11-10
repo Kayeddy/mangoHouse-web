@@ -12,7 +12,7 @@ import { productsMedia } from "../constants";
 const ApartmentSection = () => {
   const {
     formState,
-    setFormState, // Make sure to also import setFormState from the hook if necessary
+    setFormState,
     handleFieldChange,
     handleReservation,
     isFormValid,
@@ -21,10 +21,15 @@ const ApartmentSection = () => {
   // Function to update the current tab
   const setCurrentTab = (tab) => {
     setFormState((prevState) => ({ ...prevState, currentInformationTab: tab }));
-    console.log(tab);
   };
 
-  // Function to render content based on the current tab
+  /**
+   * Renders the component corresponding to the current active tab.
+   * The function checks `currentInformationTab` from the component's state and
+   * returns the relevant component for that tab with the necessary props.
+   *
+   * @returns {React.Component|null} The component corresponding to the active tab or null if no matching tab is found.
+   */
   const renderTabContent = () => {
     switch (formState.currentInformationTab) {
       case "Tarifas":

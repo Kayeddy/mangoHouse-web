@@ -5,14 +5,12 @@ const Promotions = ({ section }) => {
   const [productPromotions, setProductPromotions] = useState([]);
 
   useEffect(() => {
-    (() => {
-      if (section === "apartments") {
-        setProductPromotions(productPromotionList.apartmentPromotions);
-      } else {
-        setProductPromotions(productPromotionList.golfCarPromotions);
-      }
-    })();
-  }, []);
+    if (section === "apartments") {
+      setProductPromotions(productPromotionList.apartmentPromotions);
+    } else {
+      setProductPromotions(productPromotionList.golfCarPromotions);
+    }
+  }, [section]);
 
   return (
     <div className="w-full flex flex-col items-start justify-start gap-4">
@@ -21,9 +19,9 @@ const Promotions = ({ section }) => {
           Promoción disponible!
           <img
             src="https://em-content.zobj.net/source/animated-noto-color-emoji/356/star-struck_1f929.gif"
-            alt=""
+            alt="Star Struck Emoji"
             className="w-10 h-10"
-          />{" "}
+          />
         </span>
       ) : (
         ""
